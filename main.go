@@ -32,16 +32,18 @@ func main() {
 
 	log.Fatal(http.ListenAndServe(":8910", router))
 }
+
 func DeletePerson(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 	for index, item := range people {
 		if item.ID == params["id"] {
-			people = append(people[:index], people[index + 1])
+			people = append(people[:index], people[index+1])
 			break
 		}
 	}
 	GetPeople(w, r)
 }
+
 func CreatePerson(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 
@@ -53,9 +55,11 @@ func CreatePerson(w http.ResponseWriter, r *http.Request) {
 	storePerson(person)
 	json.NewEncoder(w).Encode(person)
 }
+
 func storePerson(person Person) {
 	people = append(people, person)
 }
+
 func GetPerson(w http.ResponseWriter, r *http.Request) {
 	params := mux.Vars(r)
 	for _, item := range people {
